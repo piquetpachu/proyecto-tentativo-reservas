@@ -54,7 +54,7 @@ proyecto-reservas/
 └── index.php
 ```
 
-Características Implementadas
+## Características Implementadas
 - Autenticación de Usuarios
 - Inicio de sesión
 - Registro de nuevos usuarios
@@ -62,7 +62,7 @@ Características Implementadas
 - Protección de rutas
 - Interfaz de Usuario
 
-- Diseño responsive con Tailwind CSS
+## Diseño responsive con Tailwind CSS
 - Modo oscuro/claro con persistencia
 - Mensajes de error y éxito
 - Validación de formularios
