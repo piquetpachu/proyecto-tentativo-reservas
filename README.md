@@ -55,45 +55,46 @@ proyecto-reservas/
 ```
 
 Características Implementadas
-Autenticación de Usuarios
+- Autenticación de Usuarios
+- Inicio de sesión
+- Registro de nuevos usuarios
+- Cierre de sesión
+- Protección de rutas
+- Interfaz de Usuario
 
-Inicio de sesión
-Registro de nuevos usuarios
-Cierre de sesión
-Protección de rutas
-Interfaz de Usuario
+- Diseño responsive con Tailwind CSS
+- Modo oscuro/claro con persistencia
+- Mensajes de error y éxito
+- Validación de formularios
+- Próximas Características
+- Sistema de reservas
+- Gestión de disponibilidad
+- Creación de reservas
+- Modificación de reservas
+- Cancelación de reservas
+- Panel de administración
+- Notificaciones
+- Reportes y estadísticas
 
-Diseño responsive con Tailwind CSS
-Modo oscuro/claro con persistencia
-Mensajes de error y éxito
-Validación de formularios
-Próximas Características
-Sistema de reservas
-Gestión de disponibilidad
-Creación de reservas
-Modificación de reservas
-Cancelación de reservas
-Panel de administración
-Notificaciones
-Reportes y estadísticas
-Tecnologías Utilizadas
-PHP
-MySQL
-Tailwind CSS
-JavaScript
-HTML5
-Seguridad
+ ## Tecnologías Utilizadas
+- PHP
+- MySQL
+- Tailwind CSS
+- JavaScript
+- HTML5
+## Seguridad
 El sistema implementa varias medidas de seguridad:
 
-Contraseñas hasheadas con password_hash()
-Protección contra SQL injection usando prepared statements
-Validación de sesiones
-Sanitización de datos de entrada
-Contribución
+- Contraseñas hasheadas con password_hash()
+- Protección contra SQL injection usando prepared statements
+- Validación de sesiones
+- Sanitización de datos de entrada
+  
+## Contribución
 Si deseas contribuir al proyecto:
 
-Haz un Fork del repositorio
-Crea una rama para tu característica (git checkout -b feature/AmazingFeature)
-Realiza tus cambios y haz commit (git commit -m 'Add some AmazingFeature')
-Push a la rama (git push origin feature/AmazingFeature)
-Abre un Pull Request
+- Haz un Fork del repositorio
+- Crea una rama para tu característica (git checkout -b feature/AmazingFeature)
+- Realiza tus cambios y haz commit (git commit -m 'Add some AmazingFeature')
+- Push a la rama (git push origin feature/AmazingFeature)
+- Abre un Pull Request
