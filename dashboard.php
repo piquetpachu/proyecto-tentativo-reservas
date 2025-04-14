@@ -4,6 +4,10 @@ if (!isset($_SESSION['usuario_id'])) {
     header("Location: login.php");
     exit;
 }
+require_once __DIR__ . '/config/database.php';
+
+$con = connection();
+$espacios = mysqli_query($con, "SELECT * FROM espacio");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -11,12 +15,9 @@ if (!isset($_SESSION['usuario_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <!-- Tailwind CSS via CDN con modo oscuro -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            darkMode: 'class'
-        }
+        tailwind.config = { darkMode: 'class' }
     </script>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 min-h-screen">
@@ -49,7 +50,13 @@ if (!isset($_SESSION['usuario_id'])) {
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
                 <div class="px-4 py-5 sm:p-6">
                     <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">Bienvenido, <?php echo $_SESSION['nombre']; ?>!</h2>
-                    
+
+                    <?php if (isset($_GET['mensaje'])): ?>
+                        <div class="bg-green-100 text-green-800 px-4 py-2 rounded mb-4">
+                            <?= htmlspecialchars($_GET['mensaje']) ?>
+                        </div>
+                    <?php endif; ?>
+
                     <div class="bg-blue-50 dark:bg-blue-900 border-l-4 border-blue-400 dark:border-blue-600 p-4 mb-6">
                         <div class="flex">
                             <div class="flex-shrink-0">
@@ -66,7 +73,7 @@ if (!isset($_SESSION['usuario_id'])) {
                     </div>
 
                     <!-- Secciones de ejemplo -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                         <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
                             <h3 class="font-medium text-gray-800 dark:text-white mb-2">Sección 1</h3>
                             <p class="text-gray-600 dark:text-gray-300">Contenido de ejemplo para la primera sección.</p>
@@ -76,38 +83,46 @@ if (!isset($_SESSION['usuario_id'])) {
                             <p class="text-gray-600 dark:text-gray-300">Contenido de ejemplo para la segunda sección.</p>
                         </div>
                     </div>
+
+                    <!-- Lista de espacios -->
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-3">Espacios registrados</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-left text-sm text-gray-700 dark:text-gray-200">
+                            <thead class="bg-gray-200 dark:bg-gray-700">
+                                <tr>
+                                    <th class="px-4 py-2">Nombre</th>
+                                    <th class="px-4 py-2">Ubicación</th>
+                                    <th class="px-4 py-2">Tipo</th>
+                                    <th class="px-4 py-2">Descripción</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white dark:bg-gray-800">
+                                <?php while ($espacio = mysqli_fetch_assoc($espacios)): ?>
+                                    <tr class="border-b border-gray-300 dark:border-gray-700">
+                                        <td class="px-4 py-2"><?= htmlspecialchars($espacio['nombre']) ?></td>
+                                        <td class="px-4 py-2"><?= htmlspecialchars($espacio['ubicacion']) ?></td>
+                                        <td class="px-4 py-2"><?= htmlspecialchars($espacio['tipo']) ?></td>
+                                        <td class="px-4 py-2"><?= htmlspecialchars($espacio['descripcion']) ?></td>
+                                    </tr>
+                                <?php endwhile; ?>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <?php mysqli_close($con); ?>
                 </div>
             </div>
+
+            <?php if ($_SESSION['rol'] === 'admin'): ?>
+                <div class="mt-6">
+                    <a href="espacios/agregar_espacio.php" class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">
+                        ➕ Agregar nuevo espacio
+                    </a>
+                </div>
+            <?php endif; ?>
         </div>
     </main>
 
-    <!-- Script para el toggle de modo oscuro -->
-    <script>
-        // Verificar preferencia del usuario
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-            document.getElementById('sunIcon').classList.add('hidden');
-            document.getElementById('moonIcon').classList.remove('hidden');
-        } else {
-            document.documentElement.classList.remove('dark');
-            document.getElementById('sunIcon').classList.remove('hidden');
-            document.getElementById('moonIcon').classList.add('hidden');
-        }
-
-        // Botón toggle
-        document.getElementById('themeToggle').addEventListener('click', function() {
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('color-theme', 'light');
-                document.getElementById('sunIcon').classList.remove('hidden');
-                document.getElementById('moonIcon').classList.add('hidden');
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('color-theme', 'dark');
-                document.getElementById('sunIcon').classList.add('hidden');
-                document.getElementById('moonIcon').classList.remove('hidden');
-            }
-        });
-    </script>
+    <script src="darktheme.js"></script>
 </body>
 </html>

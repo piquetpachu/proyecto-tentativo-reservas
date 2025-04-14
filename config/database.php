@@ -3,7 +3,7 @@ function connection() {
     $host = 'localhost';
     $user = 'root';
     $pass = '';
-    $db = 'sistema_reservas';  // ⚠️ Cambiá esto
+    $db = 'sistema_reservas'; 
 
     $con = mysqli_connect($host, $user, $pass, $db);
 
