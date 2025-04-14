@@ -122,7 +122,7 @@ $espacios = mysqli_query($con, "SELECT * FROM espacio");
             <?php endif; ?>
         </div>
     </main>
-
+    <!-- Script para el toggle de modo oscuro -->
     <script src="darktheme.js"></script>
 </body>
 </html>

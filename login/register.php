@@ -118,7 +118,7 @@
         </div>
     </div>
 
-    <!-- Mismo script para consistencia -->
+    <!-- Script para el toggle de modo oscuro -->
     <script src="../darktheme.js"></script>
 </body>
 </html>

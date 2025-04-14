@@ -74,7 +74,7 @@
         </div>
     </div>
 
-    <!-- Mismo script del dashboard para mantener consistencia -->
+    <!-- Script para el toggle de modo oscuro -->
     <script src="../darktheme.js"></script>
 </body>
 </html>
