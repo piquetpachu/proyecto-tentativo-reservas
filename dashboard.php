@@ -7,7 +7,13 @@ if (!isset($_SESSION['usuario_id'])) {
 require_once __DIR__ . '/config/database.php';
 
 $con = connection();
-$espacios = mysqli_query($con, "SELECT * FROM espacio");
+
+try {
+    $stmt = $con->query("SELECT * FROM espacio");
+    $espacios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    die("Error al obtener espacios: " . $e->getMessage());
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -97,19 +103,18 @@ $espacios = mysqli_query($con, "SELECT * FROM espacio");
                                 </tr>
                             </thead>
                             <tbody class="bg-white dark:bg-gray-800">
-                                <?php while ($espacio = mysqli_fetch_assoc($espacios)): ?>
+                                <?php foreach ($espacios as $espacio): ?>
                                     <tr class="border-b border-gray-300 dark:border-gray-700">
                                         <td class="px-4 py-2"><?= htmlspecialchars($espacio['nombre']) ?></td>
                                         <td class="px-4 py-2"><?= htmlspecialchars($espacio['ubicacion']) ?></td>
                                         <td class="px-4 py-2"><?= htmlspecialchars($espacio['tipo']) ?></td>
                                         <td class="px-4 py-2"><?= htmlspecialchars($espacio['descripcion']) ?></td>
                                     </tr>
-                                <?php endwhile; ?>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
 
-                    <?php mysqli_close($con); ?>
                 </div>
             </div>
 
