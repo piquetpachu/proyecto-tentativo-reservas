@@ -3,13 +3,14 @@ function connection() {
     $host = 'localhost';
     $user = 'root';
     $pass = '';
-    $db = 'sistema_reservas'; 
+    $db = 'sistema_reservas';
+    $charset = 'utf8mb4';
 
-    $con = mysqli_connect($host, $user, $pass, $db);
-
-    if (!$con) {
-        die("Error de conexión: " . mysqli_connect_error());
+    try {
+        $pdo = new PDO("mysql:host=$host;dbname=$db;charset=$charset", $user, $pass);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Para manejar errores
+        return $pdo;
+    } catch (PDOException $e) {
+        die("Error de conexión: " . $e->getMessage());
     }
-
-    return $con;
 }
